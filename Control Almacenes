@@ -1,0 +1,312 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int main(){
+	int existencias[50],ID[50],ptReordn[50],max[50];
+	int n=0,i,lim=0;
+	int menuOp,subMenuOp,continuar,idExiste,bandera,cantidad,venta;
+	float precio[50],subtotal,total;
+	char nombrePro[20][50];
+	do{
+	system("cls");	
+	printf("Este es un programa que administra el almacen de la empresa JUALMACENES\n");
+	printf("_______________________________________________________________________\n");
+		printf("Elija una opcion del menu\n");
+		printf("1 Alta\n2 Listado de productos\n3 Busqueda\n4 Cambios\n5 Baja\n6 Requisicion\n7 Venta\n0 Cerrar\n");
+		scanf("%i",&menuOp);
+		switch(menuOp){
+			case 1:
+				system("cls");
+				printf("Desea dar productos de alta? 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				if(n<0){
+					printf("\nEl almacen esta lleno\n");
+					system("pause");
+					break;
+				}else{
+					system("cls");
+					printf("\nIngrese el nombre del producto sin espacio de la siguiente manera = PalabraPalabra: ");
+					scanf("%s",&nombrePro[n]);
+					printf("\nIngrese el precio del producto: ");
+					scanf("%f",&precio[n]);				
+					printf("\nIngrese las existencias del producto: ");
+					scanf("%i",&existencias[n]);
+					printf("\nIngrese el punto de reorden: ");
+					scanf("%i",&ptReordn[n]);
+					printf("\nIngrese la capacidad maxima: ");
+					scanf("%i",&max[n]);
+					ID[n]=n+1;
+					printf("\nID: %i, Nombre: %s, Precio: %.2f, Existencias: %i, Punto de Reorden: %i,Capacidad: %i\n",ID[n],nombrePro[n],precio[n],existencias[n],ptReordn[n],max[n]);
+					printf("Se dio de alta con exito\n");
+					n++;
+					system("pause");
+				}
+				break;
+			case 2:
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				printf("%-20s%-20s%-20s%-20s%-20s\n","ID","Nombre","Precio","Existencias","Punto de Reorden");
+				for(i=0;i<n;i++){
+					lim++;
+					printf("%-20i%-20s%-20.2f%-20i%-20i\n",ID[i],nombrePro[i],precio[i],existencias[i],ptReordn[i]);
+					if(lim>=15){
+						system("pause");
+						lim=0;
+					}
+				}
+				system("pause");
+				break;
+			case 3:
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				bandera=0;
+				system("cls");
+				printf("Desea buscar productos? 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				system("cls");
+				printf("Ingrese el ID del producto que desea buscar: ");
+				scanf("%i",&idExiste);
+				for(int i=0;i<n;i++){
+					if(idExiste==ID[i]){
+						bandera=1;
+						printf("%-20s%-20s%-20s%-20s%-20s%-20s\n","ID","Nombre","Precio","Existencias","Punto de Reorden","Capacidad");
+						printf("%-20i%-20s%-20.2f%-20i%-20i%-20i\n",ID[i],nombrePro[i],precio[i],existencias[i],ptReordn[i],max[i]);
+						system("pause");
+					}
+				}
+				if(bandera==0){
+					printf("El ID proporcionado no existe\n");
+					system("pause");
+				}
+				break;
+			case 4:
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				system("cls");
+				printf("Desea hacer cambios a los datos de un producto? 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				bandera=0;
+				system("cls");
+				printf("Ingrese el ID del producto: ");
+				scanf("%i",&idExiste);
+				for(int i=0;i<n;i++){
+					if(idExiste==ID[i]){
+						bandera=1;
+						system("cls");
+						printf("\nQue desea cambiar?\n1 Nombre del producto\n2 Precio\n3 Existencias\n4 Punto de reorden\n5 Capacidad\n0 Cancelar\n");
+						scanf("%i",&subMenuOp);
+						system("cls");
+						switch(subMenuOp){
+							case 1:
+								printf("\nIngrese el nuevo nombre del producto sin espacio de la siguiente manera = palabraPalabra: ");
+								scanf("%s",&nombrePro[i]);
+								printf("\n%s, cambio exitoso\n",nombrePro[i]);
+								
+								break;
+							case 2:
+								printf("\nIngrese el nuevo precio del producto: ");
+								scanf("%f",&precio[i]);	
+								printf("\n%.2f, cambio exitoso\n",precio[i]);
+								
+								break;
+							case 3:
+								printf("\nIngrese las nuevas existencias del producto: ");
+								scanf("%i",&existencias[i]);
+								printf("\n%i, cambio exitoso\n",existencias[i]);
+								
+								break;
+							case 4:
+								printf("\nIngrese el nuevo punto de reorden: ");
+								scanf("%i",&ptReordn[i]);
+								printf("\n%i, cambio exitoso\n",ptReordn[i]);
+								
+								break;
+							case 5:
+								printf("\nIngrese la nueva capacidad maxima: ");
+								scanf("%i",&max[i]);
+								printf("\n%i, cambio exitoso\n",max[i]);
+								
+								break;
+							case 0:
+								printf("\nRegresando al menu\n");
+								
+								break;
+							default:
+								printf("\nLa opcion no existe\n");
+								
+								break;
+						}
+					}
+				}
+				if(bandera==0){
+					printf("El ID proporcionado no existe\n");
+				}
+				system("pause");
+				break;
+			case 5:
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				system("cls");
+				printf("Desea dar de baja un producto?, 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				system("cls");
+				printf("Ingrese el ID del producto\n");
+				scanf("%i",&idExiste);
+				bandera=0;
+				for(int i=0;i<n;i++){
+					if(idExiste==ID[i]){
+						bandera=1;
+						printf("Desea dar de baja el producto con ID %i?, 1 es SI, otro numero es NO\n",idExiste);
+						scanf("%i",&continuar);
+						if(continuar!=1){
+							printf("\nSe cancelo la operacion\n");
+							system("pause");
+							break;
+						}
+						for(int j=i;j<n-1;j=j+1){
+							ID[j]=ID[j+1]-1;
+							strcpy(nombrePro[j],nombrePro[j+1]);
+							existencias[j]=existencias[j+1];
+							precio[j]=precio[j+1];
+							ptReordn[j]=ptReordn[j+1];
+							max[j]=max[j+1];
+						}
+						n--;
+						printf("\nEl producto se elimino exitosamente\n");
+					}
+				}
+				if(bandera==0){
+					printf("\nNo se encontro un producto con ese ID\n");
+				}
+				system("pause");
+				break;
+			case 6: 
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				system("cls");
+				printf("Desea pedir productos para llenar el almacen?, 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				system("cls");
+            	total=0;
+            	printf("%-20s%-20s%-20s%-20s %-20s \n","ID","Nombre","Cantidad","Precio","Subtotal");
+            	for(i=0; i<n; i++){
+            		if(existencias[i]<ptReordn[i]){
+            			cantidad=max[i]-existencias[i];
+            			subtotal=cantidad*precio[i];
+            			total+= subtotal;
+            			printf("%-20d%-20s%-20i%-20.2f%-20.2f\n", ID[i], nombrePro[i], cantidad, precio[i], subtotal);
+					}
+				}
+				printf("Total: %.2f \n Si desea realizar la compra, ingrese 1, sino, cualquier otro numero\n", total);
+					scanf("%d", &continuar);
+					if(continuar==1){
+						for(i=0; i<n; i++){
+							if(existencias[i]<ptReordn[i]){
+						    existencias[i]=max[i];
+							}
+						}
+						printf("Compra realizada\n");
+					}
+					else{
+						printf("No se realizo la compra\n");
+					}
+					system("pause");
+				break;
+			case 7:
+				system("cls");
+				if(n+1==1){
+					printf("El almacen esta vacio\n");
+					system("pause");
+					break;
+				}
+				system("cls");
+				printf("Desea vender algun producto?, 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				system("cls");
+				printf("Que producto desea vender?, Ingrese el ID\n");
+				scanf("%i",&idExiste);
+				for(int i=0;i<n;i++){
+					if(idExiste==ID[i]){
+						bandera=1;
+						printf("Cuanto desea vender?\n");
+						scanf("%i",&venta);
+						if(venta<=existencias[i]){
+							system("cls");
+							printf("%-20s%-20s%-20s%-20s %-20s \n","ID","Nombre","Cantidad","Precio","Total");
+							total=venta*precio[i];
+							printf("%-20d%-20s%-20i%-20.2f%-20.2f\n", ID[i], nombrePro[i], venta, precio[i], total);
+							printf("\nConfirmacion de venta: 1 es SI, otro numero es NO\n");
+							scanf("%i",&continuar);
+							if(continuar!=1){
+								printf("Se cancelo la venta\n");
+								break;
+							}
+							printf("Se realizo la compra\n");
+							existencias[i]-=venta;
+							
+						}else{
+							printf("No hay suficiente producto\n");
+						}
+					}
+				}
+				if(bandera==0){
+					printf("El ID proporcionado no existe\n");
+				}
+				system("pause");
+				break;
+			case 0:
+				system("cls");
+				printf("Desea cerrar el programa?, 1 es SI, otro numero es NO\n");
+				scanf("%i",&continuar);
+				if(continuar!=1){
+					break;
+				}
+				break;
+			default:
+				system("cls");
+				printf("No existe esa opcion\n");
+				system("pause");
+				break;
+		}
+	}while(menuOp>0);
+	printf("Se cerro el programa\n");
+	system("pause");
+}
